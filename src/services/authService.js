@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}`
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api`
 
 const signUp = async (formData) => {
   // eslint-disable-next-line no-useless-catch
@@ -28,6 +28,7 @@ const signUp = async (formData) => {
 }
 
 const signIn = async (formData) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const res = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
@@ -37,6 +38,10 @@ const signIn = async (formData) => {
       body: JSON.stringify(formData)
     })
     const data = await res.json()
+    
+    // Check if the response was successful
+    if (!res.ok) throw new Error(data.detail || 'Login failed')
+    
     if (data.token) {
       // save the token in local storage
       localStorage.setItem('token', data.token)
@@ -45,7 +50,7 @@ const signIn = async (formData) => {
       return decodedToken
     }
   } catch (err) {
-    console.log(err)
+    throw err
   }
 }
 
@@ -60,8 +65,13 @@ const getUser = () => {
   }
 }
 
+const signOut = () => {
+  localStorage.removeItem('token')
+}
+
 export {
   signUp,
   signIn,
+  signOut,
   getUser,
 }

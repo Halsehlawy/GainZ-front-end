@@ -1,8 +1,13 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/programs/`
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/programs`
 
 const index = async (programId) => {
     try {
-        const res = await fetch(`${BASE_URL}/${programId}/workouts`)
+        const token = localStorage.getItem('token')
+        const res = await fetch(`${BASE_URL}/${programId}/workouts`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         const data = await res.json()
         return data
     } catch (error) {
@@ -12,7 +17,12 @@ const index = async (programId) => {
 
 const show = async (programId,workoutId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${programId}/workouts/${workoutId}`)
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${BASE_URL}/${programId}/workouts/${workoutId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
     const data = await res.json()
     return data
   } catch (err) {

@@ -1,8 +1,13 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/programs/`
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api`
 
-const index = async (programId,workoutId) => {
+const index = async (programId, workoutId) => {
     try {
-        const res = await fetch(`${BASE_URL}/${programId}/workouts/${workoutId}`)
+        const token = localStorage.getItem('token')
+        const res = await fetch(`${BASE_URL}/programs/${programId}/workouts/${workoutId}/exercises`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         const data = await res.json()
         return data
     } catch (error) {
@@ -10,9 +15,19 @@ const index = async (programId,workoutId) => {
     }
 }
 
-const show = async (programId,workoutId,exerciseId) => {
+const getAllExercises = async () => {
+    try {
+        const res = await fetch(`${BASE_URL}/exercises`)
+        const data = await res.json()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const show = async (exerciseId) => {
   try {
-        const res = await fetch(`${BASE_URL}/${programId}/workouts/${workoutId}/exercises/${exerciseId}`)
+        const res = await fetch(`${BASE_URL}/exercises/${exerciseId}`)
     const data = await res.json()
     return data
   } catch (err) {
@@ -20,11 +35,11 @@ const show = async (programId,workoutId,exerciseId) => {
   }
 }
 
-const create = async (formData,programId,workoutId) => {
+const create = async (formData) => {
   try {
     const token = localStorage.getItem('token')
 
-    const res = await fetch(`${BASE_URL}/${programId}/workouts/${workoutId}/exercises`, {
+    const res = await fetch(`${BASE_URL}/exercises`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,10 +56,10 @@ const create = async (formData,programId,workoutId) => {
   }
 }
 
-const update = async (formData, programId, workoutId,exerciseId) => {
+const update = async (formData, exerciseId) => {
   try {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${BASE_URL}/${programId}/workouts/${workoutId}/exercises/${exerciseId}`, {
+    const res = await fetch(`${BASE_URL}/exercises/${exerciseId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -59,10 +74,10 @@ const update = async (formData, programId, workoutId,exerciseId) => {
   }
 }
 
-const deleteExercise = async (programId,workoutId,exerciseId) => {
+const deleteExercise = async (exerciseId) => {
   try {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${BASE_URL}/${programId}/workouts/${workoutId}/exercises/${exerciseId}`, {
+    const res = await fetch(`${BASE_URL}/exercises/${exerciseId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`
@@ -77,6 +92,7 @@ const deleteExercise = async (programId,workoutId,exerciseId) => {
 
 export{
     index,
+    getAllExercises,
     show,
     create,
     update,
