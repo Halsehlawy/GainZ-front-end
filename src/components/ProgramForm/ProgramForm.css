@@ -1,0 +1,47 @@
+/* Simple ProgramForm CSS */
+
+.program-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+.program-form h2 {
+  margin-bottom: 20px;
+}
+
+.program-form div {
+  margin-bottom: 15px;
+}
+
+.program-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.program-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.program-form button {
+  padding: 8px 15px;
+  margin-right: 10px;
+  border: none;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+}
+
+.program-form button[type="button"] {
+  background: #6c757d;
+}
+
+.program-form button:hover {
+  opacity: 0.8;
+}

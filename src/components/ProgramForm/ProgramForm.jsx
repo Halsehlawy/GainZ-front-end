@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as programService from '../../services/programService';
+import './ProgramForm.css';
 
 const ProgramForm = (props) => {
 
@@ -31,22 +32,38 @@ const ProgramForm = (props) => {
     }
   };
     return(
-    <>
-        <form onSubmit={handleSubmit}>
-            <Form.Label>Program Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Enter program name"
-              />
-            
-        </form>
-    </>
-  )
-}
+    <div className="program-form">
+      <h2>{programId ? 'Edit Program' : 'Create Program'}</h2>
+      
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Program Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            placeholder="Enter program name"
+          />
+        </div>
+        
+        <div>
+          <button type="submit">
+            {programId ? 'Update' : 'Create'}
+          </button>
+          <button 
+            type="button" 
+            onClick={() => window.history.back()}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default ProgramForm;
 

@@ -1,0 +1,57 @@
+/* Simple ProgramList CSS */
+
+.program-list {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  color:black;
+
+}
+
+.program-list h2 {
+  margin-bottom: 20px;
+}
+
+.programs {
+  margin-top: 20px;
+}
+
+.program-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #f9f9f9;
+}
+
+.program-item h3 {
+  margin: 0 0 10px 0;
+}
+
+.program-item p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.program-actions {
+  margin-top: 10px;
+}
+
+.program-actions a,
+.program-actions button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  text-decoration: none;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.program-actions button {
+  background: #dc3545;
+}
+
+.program-actions a:hover,
+.program-actions button:hover {
+  opacity: 0.8;
+}
