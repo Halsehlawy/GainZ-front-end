@@ -1,57 +1,82 @@
-/* Simple ProgramList CSS */
+/* ProgramList CSS for a simple, clean dark mode grid layout */
 
 .program-list {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  color:black;
+  width: 100%;
+}
 
+.program-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .program-list h2 {
-  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 0; /* Remove default margin */
+}
+
+/* Style for "Create New Program" link */
+.program-list-header > a {
+  padding: 0.6rem 1.2rem;
+  background-color: #00A19B;
+  color: #121212;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.program-list-header > a:hover {
+  background-color: #00C2BA;
 }
 
 .programs {
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem; /* Increased gap for better spacing */
 }
 
 .program-item {
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 15px;
-  background: #f9f9f9;
+  background: #1E1E1E;
+  border: 1px solid #333333;
+  padding: 1.25rem;
+  border-radius: 8px; /* Slightly more rounded corners */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add a subtle shadow */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.program-item:hover {
+  transform: translateY(-4px);
+  background-color: #2a2a2a;
+}
+
+.program-item-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .program-item h3 {
-  margin: 0 0 10px 0;
+  margin: 0;
+  color: #EAEAEA;
+  font-size: 1.2rem;
+  font-weight: 700; /* Bolder title */
 }
 
 .program-item p {
-  margin: 5px 0;
-  color: #666;
+  margin: 0;
+  color: #a0a0a0;
+  font-size: 0.9rem;
 }
 
-.program-actions {
-  margin-top: 10px;
-}
-
-.program-actions a,
-.program-actions button {
-  margin-right: 10px;
-  padding: 5px 10px;
-  text-decoration: none;
-  background: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.program-actions button {
-  background: #dc3545;
-}
-
-.program-actions a:hover,
-.program-actions button:hover {
-  opacity: 0.8;
+/* Handle empty state */
+.program-list div > p {
+    text-align: center;
+    font-size: 1rem;
+    padding: 2rem;
 }
