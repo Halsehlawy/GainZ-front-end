@@ -1,0 +1,94 @@
+/* ExerciseList.css */
+
+.exercise-library-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  color: #e0e0e0;
+}
+
+.exercise-library-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.exercise-library-header h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.search-container {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 50%;
+  padding: 0.75rem 1.5rem;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #00A19B;
+  box-shadow: 0 0 0 3px rgba(0, 161, 155, 0.3);
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.exercise-card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.exercise-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: #00A19B;
+}
+
+.exercise-card-header h3 {
+  font-size: 1.5rem;
+  color: #00A19B;
+  margin: 0 0 0.5rem 0;
+}
+
+.exercise-card-body p {
+  margin: 0.5rem 0;
+  color: #a0a0a0;
+  line-height: 1.6;
+}
+
+.exercise-card-body strong {
+  color: #c0c0c0;
+}
+
+.instructions {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #333;
+}
+
+.no-exercises-found {
+  text-align: center;
+  padding: 3rem;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+}

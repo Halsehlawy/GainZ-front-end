@@ -30,24 +30,26 @@ const show = async (programId,workoutId) => {
   }
 }
 
-const create = async (formData,programId) => {
+const create = async (formData, programId) => {
   try {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
+
+    // Add programId to the form data before sending
+    const formDataWithID = { ...formData, program_id: parseInt(programId) };
 
     const res = await fetch(`${BASE_URL}/${programId}/workouts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(formData)
-    })
+      body: JSON.stringify(formDataWithID),
+    });
 
-    const data = await res.json()
-    return data
-
+    const data = await res.json();
+    return data;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 
