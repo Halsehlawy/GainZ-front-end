@@ -1,73 +1,81 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import '../SignIn/AuthForm.css';
 
 const SignUp = (props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const initialState = {
     username: '',
-    email:'',
+    email: '',
     password: '',
     passwordConf: '',
-  }
+  };
 
-  const [formData, setFormData] = useState(initialState)
-  const [error, setError] = useState(null)
-
+  const [formData, setFormData] = useState(initialState);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (props.user) {
-      navigate('/')
+      navigate('/');
     }
-  }, [props.user])
+  }, [props.user]);
 
   const handleChange = (evt) => {
-    setFormData({...formData, [evt.target.name]: evt.target.value})
-  }
+    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  };
 
-  // made this function asynchronous
   const handleSubmit = async (evt) => {
-    evt.preventDefault()  
-    // saved the return as "result"
-    const result = await props.handleSignUp(formData)
-    // if sign up is succssful, navigate to home
-    if (result.success){
-      navigate('/')
-    } else {
-      // otherwise, set the error message state 
-      setError(result.message)
+    evt.preventDefault();
+    if (formData.password !== formData.passwordConf) {
+      setError("Passwords do not match");
+      return;
     }
-  }
+    const result = await props.handleSignUp(formData);
+    if (result.success) {
+      navigate('/');
+    } else {
+      setError(result.message);
+    }
+  };
 
-  let formIsInvalid = true
-
-  if (formData.username && formData.email && formData.password && formData.password === formData.passwordConf) {
-    formIsInvalid = false
-  }
+  const isFormInvalid = !(formData.username && formData.email && formData.password && formData.password === formData.passwordConf);
 
   return (
-    <main>
-      <h1>Sign up Form</h1>
-      {/* add error message display to form */}
-      {error}
-      <form onSubmit={handleSubmit}>
-        <label>Username:</label>
-        <input type="text" name='username' onChange={handleChange} />
-        <br />
-        <label>Email:</label>
-        <input type="email" name='email' onChange={handleChange} />
-        <br />
-        <label>Password:</label>
-        <input type="password" name='password' onChange={handleChange} />
-        <br />
-        <label>Confirm Password:</label>
-        <input type="password" name="passwordConf" onChange={handleChange} />
-        <br />
-        <button type="submit" disabled={formIsInvalid}>Sign up</button>
+    <div className="auth-container">
+      <div className="auth-header">
+        <h1>Sign Up</h1>
+      </div>
+      {error && <p className="auth-error">{error}</p>}
+      <form onSubmit={handleSubmit} className="auth-form">
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input type="text" id="username" name="username" onChange={handleChange} className="form-input" required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" onChange={handleChange} className="form-input" required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" name="password" onChange={handleChange} className="form-input" required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="passwordConf">Confirm Password</label>
+          <input type="password" id="passwordConf" name="passwordConf" onChange={handleChange} className="form-input" required />
+        </div>
+        <button type="submit" disabled={isFormInvalid} className="auth-button">
+          Sign Up
+        </button>
       </form>
-    </main>
-  )
-}
+      <div className="auth-switch-link">
+        <p>
+          Already have an account? <Link to="/sign-in">Sign In</Link>
+        </p>
+      </div>
+    </div>
+  );
+};
 
-export default SignUp
+export default SignUp;
