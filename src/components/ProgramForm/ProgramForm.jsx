@@ -1,43 +1,72 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import * as programService from '../../services/programService';
 import './ProgramForm.css';
 
-const ProgramForm = (props) => {
+const ProgramForm = () => {
+  const { programId } = useParams();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ name: '' });
 
-  const {programId} = useParams()
-  const  initialState = {
-    name:'',
-  }
-  const [formData, setFormData] = useState(initialState)
+  useEffect(() => {
+    const fetchProgram = async () => {
+      try {
+        const data = await programService.show(programId);
+        setFormData(data);
+      } catch (err) {
+        console.error('Error fetching program:', err);
+      }
+    };
 
-  useEffect(()=>{
-    const fetchProgram = async()=>{
-      const data = await programService.show(programId)
-      setFormData(data)
+    if (programId) {
+      fetchProgram();
     }
-    if(programId) fetchProgram()
-  },[programId])
+  }, [programId]);
 
   const handleChange = (evt) => {
-		setFormData({ ...formData, [evt.target.name]: evt.target.value })
-	}
+    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (programId) {
-      props.handleUpdateProgram(formData, programId);
-    } else {
-      props.handleAddProgram(formData);
+    if (formData.is_default) return;
+    try {
+      if (programId) {
+        await programService.update(formData, programId);
+        navigate(`/programs/${programId}`);
+      } else {
+        await programService.create(formData);
+        navigate('/programs');
+      }
+    } catch (err) {
+      console.error('Error saving program:', err);
     }
   };
-    return(
-    <div className="program-form">
-      <h2>{programId ? 'Edit Program' : 'Create Program'}</h2>
-      
+
+  if (formData.is_default) {
+    return (
+      <div className="form-container default-program-message">
+        <div className="form-header">
+          <h2>Cannot Edit Default Program</h2>
+        </div>
+        <p>Default programs are not editable. You can only use them as templates.</p>
+        <div className="form-actions">
+          <button onClick={() => navigate('/programs')} className="form-button secondary">
+            Back to Programs
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="form-container">
+      <div className="form-header">
+        <h2>{programId ? 'Edit Program' : 'Create New Program'}</h2>
+      </div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Program Name:</label>
+        <div className="form-group">
+          <label htmlFor="name">Program Name</label>
           <input
             type="text"
             id="name"
@@ -45,19 +74,20 @@ const ProgramForm = (props) => {
             value={formData.name}
             onChange={handleChange}
             required
-            placeholder="Enter program name"
+            placeholder="enter program name"
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <button type="submit">
-            {programId ? 'Update' : 'Create'}
-          </button>
-          <button 
-            type="button" 
-            onClick={() => window.history.back()}
+        <div className="form-actions">
+          <button
+            type="button"
+            onClick={() => navigate(programId ? `/programs/${programId}` : '/programs')}
+            className="form-button secondary"
           >
             Cancel
+          </button>
+          <button type="submit" className="form-button primary">
+            {programId ? 'Save Changes' : 'Create Program'}
           </button>
         </div>
       </form>
