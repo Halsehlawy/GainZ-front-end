@@ -1,0 +1,137 @@
+/* WorkoutDetail.css */
+
+.workout-detail-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  color: #e0e0e0;
+}
+
+.workout-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.workout-detail-header h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.workout-day {
+  font-size: 1.2rem;
+  color: #00A19B;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.workout-detail-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.back-to-program-link,
+.edit-workout-link {
+  background-color: #333;
+  color: #e0e0e0;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid transparent;
+}
+
+.back-to-program-link:hover,
+.edit-workout-link:hover {
+  background-color: #444;
+  color: #ffffff;
+}
+
+.exercise-list-container {
+  margin-top: 2rem;
+}
+
+.exercise-list-container h3 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.exercise-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.exercise-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 1px solid #333;
+}
+
+.exercise-card:hover {
+  border-color: #00A19B;
+}
+
+.exercise-details h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.exercise-details p {
+  margin: 0;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.exercise-stats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.exercise-stats span {
+  background-color: #2a2a2a;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.no-exercises-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.no-exercises-message p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #aaa;
+}
+
+.add-exercises-link {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: #00A19B;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.add-exercises-link:hover {
+  background-color: #007f78;
+}

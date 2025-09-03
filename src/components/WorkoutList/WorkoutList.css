@@ -1,0 +1,67 @@
+/* Simple WorkoutList CSS */
+
+.workout-list {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.workout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.workout-header h2 {
+  margin: 0;
+}
+
+.workout-header a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.workouts {
+  margin-top: 20px;
+}
+
+.workout-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #f9f9f9;
+}
+
+.workout-item h3 {
+  margin: 0 0 10px 0;
+}
+
+.workout-item p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.workout-actions {
+  margin-top: 10px;
+}
+
+.workout-actions a,
+.workout-actions button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  text-decoration: none;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.workout-actions button {
+  background: #dc3545;
+}
+
+.workout-actions a:hover,
+.workout-actions button:hover {
+  opacity: 0.8;
+}
