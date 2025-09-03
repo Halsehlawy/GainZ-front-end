@@ -4,11 +4,15 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import ProgramForm from './components/ProgramForm/ProgramForm.jsx'
 import ProgramList from './components/ProgramList/ProgramList.jsx'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import ProgramDetail from './components/ProgramDetail/ProgramDetail.jsx'
+import WorkoutList from './components/WorkoutList/WorkoutList.jsx'
+import WorkoutForm from './components/WorkoutForm.jsx/WorkoutForm.jsx'
+import WorkoutDetail from './components/WorkoutDetail/WorkoutDetail.jsx'
+import ExerciseList from './components/ExerciseList.jsx/ExerciseList.jsx'
+import { Route, Routes, useNavigate, Outlet, Navigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import * as authService from './services/authService.js'
 import * as programService from './services/programService.js'
-
-import { useState, useEffect } from 'react'
 
 
 const App = () => {
@@ -61,51 +65,37 @@ const App = () => {
       throw err;
     }
   }
-
-  const handleAddProgram = async(formData)=>{
-    try {
-      const newProgram = await programService.create(formData)
-      setPrograms([...programs, newProgram])
-      navigate('/programs')
-    } catch (err) {
-      console.error('Error creating program:', err);
-    }
-  }
-
-  const handleUpdateProgram = async(formData, programId) => {
-    try {
-      const updatedProgram = await programService.update(formData, programId)
-      setPrograms(programs.map(program => 
-        program.id === programId ? updatedProgram : program
-      ))
-      navigate('/programs')
-    } catch (err) {
-      console.error('Error updating program:', err);
-    }
-  }
   
+  const ProtectedRoutes = ({ user }) => {
+    return user ? <Outlet /> : <Navigate to="/signin" />;
+  };
+
   return (
     <>
       <NavBar user={user} handleSignOut={handleSignOut} />
-      <Routes>
+      <div className="main-content">
+        <Routes>
           <Route path='/' element={
             user ? <ProgramList programs={programs} /> : <h1>Welcome to GainZ! Please sign in to get started.</h1>
           } />
-          <Route path='/programs' element={
-            user ? <ProgramList programs={programs} /> : <SignIn handleSignIn={handleSignIn} user={user} />
-          } />
-          <Route path='/programs/new' element={
-            user ? <ProgramForm handleAddProgram={handleAddProgram}/> : <SignIn handleSignIn={handleSignIn} user={user} />
-          }/>
-          <Route path='/programs/:programId/edit' element={
-            user ? <ProgramForm handleUpdateProgram={handleUpdateProgram}/> : <SignIn handleSignIn={handleSignIn} user={user} />
-          }/>
-          <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
-          <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
-          <Route path='*' element={<h1>404</h1>} />
-    </Routes>
+          <Route path='/signup' element={<SignUp handleSignUp={handleSignUp} />} />
+          <Route path='/signin' element={<SignIn handleSignIn={handleSignIn} />} />
+
+          <Route element={<ProtectedRoutes user={user} />}>
+            <Route path='/programs' element={<ProgramList programs={programs} />} />
+            <Route path='/programs/new' element={<ProgramForm />} />
+            <Route path='/programs/:programId' element={<ProgramDetail user={user} />} />
+            <Route path='/programs/:programId/edit' element={<ProgramForm />} />
+            <Route path='/programs/:programId/workouts' element={<WorkoutList />} />
+            <Route path='/programs/:programId/workouts/new' element={<WorkoutForm />} />
+            <Route path='/programs/:programId/workouts/:workoutId' element={<WorkoutDetail />} />
+            <Route path='/programs/:programId/workouts/:workoutId/edit' element={<WorkoutForm />} />
+            <Route path='/exercises' element={<ExerciseList />} />
+          </Route>
+        </Routes>
+      </div>
     </>
-  )
+  );
 }
 
 export default App
