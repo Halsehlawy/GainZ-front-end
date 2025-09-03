@@ -1,24 +1,38 @@
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom';
+import './NavBar.css';
 
 const NavBar = (props) => {
-
   return (
-    <nav>
-      {props.user ? (
-        <ul>
-          <li>Welcome {props.user.username}</li>
-          <li><Link to="/programs">Programs</Link></li>
-          <li><Link to="/programs/new">Create Program</Link></li>
-          <li><Link to='/' onClick={props.handleSignOut}>Sign Out</Link></li>
-        </ul>
+    <nav className="navbar">
+      <div className="navbar-brand">
+        <Link to="/" className="navbar-logo">GainZ</Link>
+      </div>
+      <div className="navbar-links">
+        {props.user ? (
+          <>
+            <NavLink to="/programs" className="nav-link" activeClassName="active">
+              Programs
+            </NavLink>
+            <NavLink to="/exercises" className="nav-link" activeClassName="active">
+              Exercise Library
+            </NavLink>
+            <button onClick={props.handleSignOut} className="nav-button">
+              Sign Out
+            </button>
+          </>
         ) : (
-          <ul>
-            <li><Link to="/sign-up">Sign Up</Link></li>
-            <li><Link to="/sign-in">Sign In</Link></li>
-          </ul>
-          ) }
+          <>
+            <NavLink to="/sign-up" className="nav-link" activeClassName="active">
+              Sign Up
+            </NavLink>
+            <NavLink to="/sign-in" className="nav-link" activeClassName="active">
+              Sign In
+            </NavLink>
+          </>
+        )}
+      </div>
     </nav>
-  )
-}
+  );
+};
 
-export default NavBar 
+export default NavBar;
